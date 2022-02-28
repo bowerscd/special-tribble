@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "ES2017",
+		"module": "None",
+		"alwaysStrict": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"strict": true,
+		"baseUrl": "./site/scripts/",
+		"sourceMap": true,
+	},
+}

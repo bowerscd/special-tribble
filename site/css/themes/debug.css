@@ -1,0 +1,26 @@
+body {
+	background-color: blanchedalmond;
+}
+
+section {
+	background-color: black;
+	color: white;
+}
+
+div#debt-list .debt {
+	background-color: aqua;
+	color: black;
+}
+
+div#debt-list .debt:nth-child(2n) {
+	background-color: whitesmoke;
+}
+
+div#debt-list .debt:nth-child(n+2) {
+	border-color: grey;
+	color: black;
+}
+
+div.personal {
+	background-color: pink;
+}

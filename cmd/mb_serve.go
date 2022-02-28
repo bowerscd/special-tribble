@@ -155,7 +155,7 @@ func main() {
 		os.Exit(0)
 	}()
 
-	err = http.ListenAndServe("127.0.0.1:8080", server)
+	err = http.ListenAndServe("0.0.0.0:80", server)
 	if err != nil {
 		log.Fatalf("%v", err)
 	}
