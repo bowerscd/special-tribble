@@ -139,11 +139,16 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, os.Kill)
 	defer stop()
 
+	db := os.Getenv("MEALBOT_DB")
+	if len(db) == 0 {
+		db = "./Database.json"
+	}
+
 	server := http.NewServeMux()
 	server.Handle("/api/", ApiHandler())
 	server.Handle("/", http.FileServer(http.Dir("site/")))
 
-	err := internal.InitDB("./Database.json")
+	err := internal.InitDB(db)
 	if err != nil {
 		log.Fatalf("%v", err)
 	}

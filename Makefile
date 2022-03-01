@@ -8,7 +8,7 @@ depends:
 release: depends
 	/usr/bin/tsc
 	mkdir -p build/
-	find ./site -regextype egrep -iregex "^(.*/external/.*|.*\.(html|css|ts|js(\.map)))\$$" -exec install -D -m 600 "{}" "build/{}" \;
+	find ./site -regextype egrep -iregex "^(.*/external/.*|.*\.(html|css|js))\$$" -exec install -D -m 600 "{}" "build/{}" \;
 	/usr/bin/go build -o "build/mealbot" -v ./cmd
 
 debug: depends
@@ -19,4 +19,4 @@ container: release
 	docker build . -t bowerscd/special-tribble:latest
 
 clean:
-	rm -r build
+	rm -rf build

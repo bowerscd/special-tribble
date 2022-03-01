@@ -7,4 +7,5 @@ ADD build/ /opt/mealbot/
 
 EXPOSE 80
 WORKDIR /opt/mealbot/
+ENV MEALBOT_DB="/mnt/Database.json"
 ENTRYPOINT [ "/opt/mealbot/mealbot" ]
