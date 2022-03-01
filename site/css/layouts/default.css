@@ -1,123 +1,125 @@
 body {
 	margin: 0;
-	margin: 0;
+}
+
+.header-spacer {
+	height: 6rem;
+}
+
+header {
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	justify-content: right;
+	height: 6rem;
+
+	position: fixed;
+	top: 0px;
+	width: 100%;
+}
+
+header div.title {
+	font-size: 36pt;
+	min-width: max-content;
+	flex-grow: 1;
+	text-align: center;
+}
+
+header div.title a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.user-selector select {
+	font-size: 36pt;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	text-align: center;
+}
+
+.user-selector select:focus {
+	outline: none;
 }
 
 section {
-	height: calc(95vh - (4vh + 7vh + 4vh));
+	height: calc(100vh - 6rem);
 }
 
 section div#main {
-	padding: 2vh 2vw;
 	overflow-y: auto;
 	touch-action: pan-y;
 	height:100%;
 }
 
-.center.modal {
-	width: 50%;
-	margin-left: 25%;
-	margin-right: 25%;
-	position: absolute;
-	height: 25vh;
-	margin-top: 10%;
-	background-color: green;
+
+div#debt-list {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+
+	padding: 1rem;
 }
 
-div.filter {
-	width: 100%;
-	height: 100%;
-	opacity: 50%;
-	background-color: black;
-	position: sticky;
-	pointer-events: none;
-	display: none;
+div.debt {
+	width: 300px;
+	min-width: min-content;
+	border-radius: 0.5rem;
+	padding: 1rem;
 }
 
-div .personal i {
-	font-size: 8vh;
+div.debt .card-title {
+	display: flex;
+	justify-content: left;
+	align-items: center;
 }
 
-div.personal select {
-	text-align: right;
-	margin: 0;
-}
-
-div.personal select {
-	font-size: 36pt;
-	width: 60vw;
-	padding: 2vh 2vw;
-}
-
-div.personal.summary {
-	margin: 2vh 2vw;
+div.debt .card-name {
 	font-size: 36pt;
 	text-align: center;
-	padding: 2vh 2vw;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+
+	width: auto;
+	padding: 0 1rem;
+	margin: 0 1rem;
+	flex-grow: 1;
 }
 
-div#debt-list .debt {
-	padding: 2vh 4vw;
-	font-size: 6vh;
+div.debt img.portrait {
+	flex-basis: 0;
 }
 
-div#debt-list .debt:nth-child(n+2) {
-	margin-top: 1vh;
-	border-top: 2px solid;
+img.portrait {
+	border-radius: 0.5rem;
 }
 
-div.container {
+div.debt div.summary {
+	font-size: 22pt;
+	margin-top: 1rem;
+}
+
+div.debt div.summary s.delta {
+	font-size: 26pt;
+	font-weight: 600;
+}
+
+div.debt div.buttons {
+	margin-top: 1rem;
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
+	gap: 0.5rem;
+	justify-content: right;
 }
 
-div .debt .container p {
-	font-size: 36pt;
-	margin: 0;
+div.debt div.buttons button {
+	cursor: pointer;
+	padding: 0.5rem;
+	font-size: 18pt;
+	border-radius: 0.5rem;
 }
 
-div .debt .container .name {
-	text-align: center;
-	flex-basis: 40vw;
-}
-
-div .debt .container .summary {
-	text-align: right;
-}
-
-div.container .portrait {
-	flex-basis: 10vw;
-}
-
-div.container .buttons {
-	flex-basis: 20vw;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: stretch;
-	align-items: baseline;
-}
-
-div.container .buttons button {
-	width: 100%;
-	flex-basis: 7vh;
-	font-size: 32pt;
-}
-
-div.container .buttons button:first-child {
-	margin-bottom: 1vh;
-}
-
-div.container .summary {
-	flex-basis: 30vw;
-}
-
-div.container .buttons .v-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: stretch;
-	align-items: baseline;
+.button-with-border {
+	border-width: 1px;
+	border-style: solid;
+	transition: background-color 150ms ease-out;
 }

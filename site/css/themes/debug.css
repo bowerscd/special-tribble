@@ -1,26 +1,40 @@
-body {
-	background-color: blanchedalmond;
+html {
+	background-color: rgb(33, 4, 42);
 }
 
-section {
-	background-color: black;
-	color: white;
+header {
+	background-color: rgb(59, 198, 245);
+}
+
+.user-selector select {
+	background-color: wheat;
+}
+
+.user-selector select:hover {
+	background-color: lightgray;
+}
+
+.user-selector select:focus {
+	background-color: lightgray;
 }
 
 div#debt-list .debt {
-	background-color: aqua;
+	background-color: lightblue;
 	color: black;
 }
 
-div#debt-list .debt:nth-child(2n) {
-	background-color: whitesmoke;
+div.debt div.buttons button {
+	background-color: wheat;
 }
 
-div#debt-list .debt:nth-child(n+2) {
-	border-color: grey;
-	color: black;
+div.debt div.buttons button:hover {
+	background-color: lightgray;
 }
 
-div.personal {
-	background-color: pink;
+div.debt .card-name {
+	border-bottom-color: black;
+}
+
+.button-with-border {
+	border-color: black;
 }
