@@ -18,6 +18,10 @@ header {
 	width: 100%;
 }
 
+header::after {
+	content: '';
+}
+
 header div.title {
 	font-size: 36pt;
 	min-width: max-content;
