@@ -2,3 +2,4 @@ site/scripts/*.js
 site/scripts/*.js.map
 site/css/external/*
 Database.json
+build/
