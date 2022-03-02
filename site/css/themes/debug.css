@@ -6,29 +6,9 @@ header {
 	background-color: rgb(59, 198, 245);
 }
 
-.user-selector select {
-	background-color: wheat;
-}
-
-.user-selector select:hover {
-	background-color: lightgray;
-}
-
-.user-selector select:focus {
-	background-color: lightgray;
-}
-
 div#debt-list .debt {
 	background-color: lightblue;
 	color: black;
-}
-
-div.debt div.buttons button {
-	background-color: wheat;
-}
-
-div.debt div.buttons button:hover {
-	background-color: lightgray;
 }
 
 div.debt .card-name {
@@ -37,4 +17,13 @@ div.debt .card-name {
 
 .button-with-border {
 	border-color: black;
+	background-color: wheat;
+}
+
+.button-with-border:focus {
+	background-color: lightgray;
+}
+
+.button-with-border:hover {
+	background-color: lightgray;
 }
