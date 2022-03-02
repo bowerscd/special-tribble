@@ -11,23 +11,43 @@
 </head>
 
 <body onload="OnLoad()">
-	<div class="personal summary">
-		<div class="container">
-			<div class="personal portrait">
-				<i class="fa-solid fa-user"></i>
-			</div>
-			<div class="personal name">
-				<select id="whoami" onchange="OnUserChange()">
-					<option value="0">jsuther</option>
-					<option value="1">dede</option>
-
-				</select>
-			</div>
+	<header>
+		<div class="title">
+			<a href="#">PI Mealbot</a>
 		</div>
-	</div>
+		
+		<div class="personal portrait">
+			<img class="portrait" src="https://picsum.photos/seed/{{whoami}}/50">
+		</div>
+		
+		<div class="user-selector">
+			<select class="button-with-border" id="whoami" onchange="OnUserChange()">
+				<option value="0">jsuther</option>
+				<option value="1">dede</option>
+
+			</select>
+		</div>
+	</header>
+	<div class="header-spacer"></div>
+
 	<section>
 		<div id="main">
 			<div id="debt-list">
+				<div class="debt" id="{{upn}}">
+					<div class="card-title">
+						<img class="portrait" src="https://picsum.photos/seed/{{whoami}}/50">
+						<div class="card-name">{{upn}}</div>
+					</div>
+					<div class="summary">{{summary}}</div>
+					<div class="buttons">
+						<button class="button-with-border" onclick='EditMeal("{{upn}}", "{{whoami}}", 1)'>
+							+ meal
+						</button>
+						<button class="button-with-border" onclick='EditMeal("{{whoami}}", "{{upn}}", 1)'>
+							- meal
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>

@@ -1,21 +1,15 @@
 <div class="debt">
-	<div class="container" id="{{upn}}">
-		<div class="portrait">
-			<i class="fa-solid fa-user"></i>
-		</div>
-		<div class="name">
-			<p>{{upn}}</p>
-		</div>
-		<div class="buttons">
-			<button onclick='EditMeal("{{upn}}", "{{whoami}}", 1)'>
-				add meal
-			</button>
-			<button onclick='EditMeal("{{whoami}}", "{{upn}}", 1)'>
-				remove meal
-			</button>
-		</div>
-		<div class="summary">
-			{{summary}}
-		</div>
+	<div class="card-title">
+		<img class="portrait" src="https://picsum.photos/seed/{{upn}}/50">
+		<div class="card-name">{{upn}}</div>
+	</div>
+	<div class="summary">{{summary}}</div>
+	<div class="buttons">
+		<button class="button-with-border" onclick='EditMeal("{{upn}}", "{{whoami}}", 1)'>
+			+ meal
+		</button>
+		<button class="button-with-border" onclick='EditMeal("{{whoami}}", "{{upn}}", 1)'>
+			- meal
+		</button>
 	</div>
 </div>
