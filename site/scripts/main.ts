@@ -89,16 +89,19 @@ function _sendRequest(method: HttpMethods = HttpMethods.GET,
 
 function _format_template(user: DatabaseUser, summary: number) : string {
 	let fmt = document.createElement('div');
-	let sumString = "";
+	let summaryText = "";
+	let summaryAmount = "";
 	if (summary < 0) {
-		sumString = "Owes you: "+(-summary);
+		summaryText = "Owes you: ";
+		summaryAmount += (-summary);
 	} else if (summary > 0) {
-		sumString = "You owe: "+summary;
+		summaryText = "You owe: ";
+		summaryAmount += summary;
 	}
 
-
 	fmt.innerHTML = _debt_template.replace(/\{\{upn\}\}/gi, user.UPN);
-	fmt.innerHTML = fmt.innerHTML.replace(/\{\{summary\}\}/gi, sumString);
+	fmt.innerHTML = fmt.innerHTML.replace(/\{\{summarytext\}\}/gi, summaryText);
+	fmt.innerHTML = fmt.innerHTML.replace(/\{\{summaryamount\}\}/gi, summaryAmount);
 	fmt.innerHTML = fmt.innerHTML.replace(/\{\{whoami\}\}/gi, _whoami.UPN);
 
 	return fmt.innerHTML;

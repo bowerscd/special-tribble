@@ -1,0 +1,30 @@
+html {
+    background-color: rgb(241, 241, 241);
+    color: black;
+}
+
+header {
+    background-color: rgb(211, 218, 219);
+}
+
+.user-selector select {
+    background-color: rgb(241, 241, 241);
+    box-shadow: 0px 0.2rem 0.6rem rgb(0, 81, 128);
+}
+
+div#debt-list .debt {
+    background-color: rgb(235, 235, 235);
+    box-shadow: 0px 0.5rem 1rem gray;
+}
+
+div.card-summary s.summary-amount {
+    text-shadow: 1px 2px 3px rgb(0, 56, 88);
+}
+
+.add-button {
+    color: rgb(0, 81, 128);
+}
+
+.subtract-button {
+    color: rgb(0, 81, 128);
+}

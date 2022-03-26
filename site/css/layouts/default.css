@@ -2,128 +2,122 @@ body {
 	margin: 0;
 }
 
-.header-spacer {
+img.portrait {
+	width: 6rem;
 	height: 6rem;
+	border-radius: 50%;
 }
 
-header {
+body section {
+	height: calc(100vh - 8rem);
+}
+
+body section header {
 	display: flex;
 	gap: 2rem;
 	align-items: center;
-	justify-content: right;
-	height: 6rem;
+	justify-content: center;
+	height: 8rem;
 
-	position: fixed;
-	top: 0px;
-	width: 100%;
+	padding-right: 3rem;
+	padding-left: 3rem;
 }
 
-header::after {
-	content: '';
-}
-
-header div.title {
-	font-size: 36pt;
+header div.header-title {
+	font-size: 4rem;
 	min-width: max-content;
 	flex-grow: 1;
 	text-align: center;
 }
 
-header div.title a {
+header div.header-title a {
 	text-decoration: none;
 	color: inherit;
 }
 
-.user-selector select {
-	font-size: 36pt;
-	border-radius: 0.5rem;
+header .user-selector select {
+	font-size: 4rem;
 	padding: 0.5rem;
 	text-align: center;
+	border: none;
 }
 
-.user-selector select:focus {
+header .user-selector select:focus {
 	outline: none;
 }
 
-section {
-	height: calc(100vh - 6rem);
-}
-
-section div#main {
+body section main {
 	overflow-y: auto;
 	touch-action: pan-y;
 	height:100%;
+	margin: auto;
 }
 
-
-div#debt-list {
+#debt-list {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	gap: 1rem;
-
-	padding: 1rem;
+	gap: 3rem;
+	padding: 3rem;
 }
 
 div.debt {
-	width: 300px;
+	width: 100%;
 	min-width: min-content;
-	border-radius: 0.5rem;
 	padding: 1rem;
+	align-items: center;
+
+	display: grid;
+	row-gap: 2rem;
 }
 
 div.debt .card-title {
 	display: flex;
 	justify-content: left;
 	align-items: center;
+	gap: 2rem;
+
+	grid-row: 1;
+	grid-column: 1;
 }
 
-div.debt .card-name {
-	font-size: 36pt;
-	text-align: center;
-	border-bottom-width: 2px;
-	border-bottom-style: solid;
-
-	width: auto;
-	padding: 0 1rem;
-	margin: 0 1rem;
-	flex-grow: 1;
+.card-title .name {
+	font-size: 5rem;
+	font-style: italic;
 }
 
-div.debt img.portrait {
-	flex-basis: 0;
+div.debt div.card-summary {
+	font-size: 5rem;
+	text-align: right;
+	
+	grid-row: 2;
+	grid-column: 1;
 }
 
-img.portrait {
-	border-radius: 0.5rem;
+div.card-summary s {
+	text-decoration: none;
 }
 
-div.debt div.summary {
-	font-size: 22pt;
-	margin-top: 1rem;
+div.card-summary s.summary-amount {
+	font-weight: bolder;
 }
 
-div.debt div.summary s.delta {
-	font-size: 26pt;
-	font-weight: 600;
-}
-
-div.debt div.buttons {
-	margin-top: 1rem;
+div.debt div.card-buttons {
 	display: flex;
-	gap: 0.5rem;
+	gap: 1rem;
 	justify-content: right;
+	align-items: center;
+	
+	grid-column: 2;
+	grid-row: span 2;
 }
 
-div.debt div.buttons button {
+div.debt div.card-buttons button {
 	cursor: pointer;
-	padding: 0.5rem;
-	font-size: 30pt;
-	border-radius: 0.5rem;
-}
+	font-size: 8rem;
+	width: 1em;
+	height: 1em;
 
-.button-with-border {
-	border-width: 1px;
-	border-style: solid;
-	transition: background-color 150ms ease-out;
+	background: none;
+	border: none;
 }
