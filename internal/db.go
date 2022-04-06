@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path"
 	"sync"
 	"time"
 )
@@ -135,7 +136,7 @@ func SyncDb(dbFile string) {
 		log.Panicf("[DB] Failed to marshal JSON db, %v", err)
 	}
 
-	f, err := ioutil.TempFile("./", "MealBotServe")
+	f, err := ioutil.TempFile(path.Dir(dbFile), "MealBotServe")
 	if err != nil {
 		log.Printf("[DB] Failed to create temp file, %v", err)
 		return
@@ -143,13 +144,16 @@ func SyncDb(dbFile string) {
 
 	_, err = f.WriteString(string(b))
 	if err != nil {
+		f.Close()
 		log.Printf("[DB] Failed to write to temp file, %v", err)
 		return
 	}
 
 	err = f.Sync()
 	if err != nil {
+		f.Close()
 		log.Printf("[DB] Failed to synchronize storage, %v", err)
+		return
 	}
 	f.Close()
 
