@@ -2,21 +2,29 @@ all: depends release
 
 
 depends:
-	@/usr/bin/tsc --version >/dev/null || (echo "missing typescript compiler"; exit 1)
-	@/usr/bin/go version >/dev/null || (echo "missing golang"; exit 1)
+	@$$(which tsc) --version >/dev/null || (echo "missing typescript compiler"; exit 1)
+	@$$(which go) version >/dev/null || (echo "missing golang"; exit 1)
+	@$$(which curl) --version >/dev/null || (echo "missing curl"; exit 1)
+	@$$(which 7z) >/dev/null || (echo "missing p7zip"; exit 1)
+	@ls -l ./site/css/external/fontawesome6 >/dev/null || (curl -L https://use.fontawesome.com/releases/v6.2.1/fontawesome-free-6.2.1-web.zip -o site/css/external/fontawesome6.zip \
+						&& 7z x site/css/external/fontawesome6.zip -o"site/css/external/fontawesome6" \
+						&& mv site/css/external/fontawesome6/fontawesome-free-6.2.1-web/* site/css/external/fontawesome6/ \
+						&& rmdir  site/css/external/fontawesome6/fontawesome-free-6.2.1-web/)
+	@rm -f site/css/external/fontawesome6.zip
 
 release: depends
-	/usr/bin/tsc
-	mkdir -p build/
-	find ./site -regextype egrep -iregex "^(.*/external/.*|.*\.(html|css|js))\$$" -exec install -D -m 600 "{}" "build/{}" \;
-	/usr/bin/go build -o "build/mealbot" -v ./cmd
+	@$$(which tsc)
+	@$$(which go) build -o "build/mealbot" -v ./cmd
 
 debug: depends
-	/usr/bin/tsc
-	/usr/bin/go run ./cmd
+	@$$(which tsc)
+	@$$(which go) run ./cmd
 
 container: release
-	docker build . -t bowerscd/special-tribble:latest
+	@$$(which docker) build . -t bowerscd/special-tribble:latest
+
+pkg:
+
 
 clean:
-	rm -rf build
+	@rm -rf build
