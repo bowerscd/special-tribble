@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/bowerscd/mealbot/internal"
+	"github.com/bowerscd/mealbot/site"
 )
 
 const dbgHeader string = "x-mealbot-bad-request"
@@ -146,7 +147,7 @@ func main() {
 
 	server := http.NewServeMux()
 	server.Handle("/api/", ApiHandler())
-	server.Handle("/", http.FileServer(http.Dir("site/")))
+	server.Handle("/", http.FileServer(http.FS(site.EmbeddedSite)))
 
 	err := internal.InitDB(db)
 	if err != nil {
