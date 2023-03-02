@@ -82,12 +82,12 @@ div.debt .card-title {
 }
 
 .card-title .name {
-	font-size: 5rem;
+	font-size: 3.5rem;
 	font-style: italic;
 }
 
 div.debt div.card-summary {
-	font-size: 5rem;
+	font-size: 3.5rem;
 	text-align: right;
 	
 	grid-row: 2;
@@ -114,7 +114,7 @@ div.debt div.card-buttons {
 
 div.debt div.card-buttons button {
 	cursor: pointer;
-	font-size: 8rem;
+	font-size: 6rem;
 	width: 1em;
 	height: 1em;
 
