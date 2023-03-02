@@ -32,6 +32,3 @@ div.debt div.card-buttons {
     grid-row: 1;
     grid-column: 3;
 }
-div.debt div.card-buttons button {
-    font-size: 4rem;
-}
