@@ -1,7 +1,14 @@
 package site
 
-import "embed"
+import (
+	"embed"
+	"net/http"
+)
 
 //go:embed index.html
 //go:embed css/* scripts/*.js templates/*
-var EmbeddedSite embed.FS
+var embeddedSite embed.FS
+
+func WebRootHandler(server *http.ServeMux) {
+	server.Handle("/", http.FileServer(http.FS(embeddedSite)))
+}

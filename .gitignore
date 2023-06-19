@@ -1,8 +1,7 @@
 site/scripts/*.js
 site/scripts/*.js.map
 site/css/external/*
-[Dd]atabase.json
+*.json
 build/
-mealbot.service
 .vscode
 .viminfo
