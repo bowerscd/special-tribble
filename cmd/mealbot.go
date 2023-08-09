@@ -16,10 +16,11 @@ func webServer(mealbot mealbot.Database, addr string) *http.Server {
 	// Static Files
 	site.WebRootHandler(s)
 
-	// 0.0 APIs
-	api.AddV0Api(mealbot, s)
+	ServerInterface := &api.ApiHandler{
+		Backend: mealbot,
+	}
 
-	// 0.1 APIs
+	s.Handle("/api/", api.Handler(ServerInterface))
 
 	// the server itself
 	server := &http.Server{
@@ -41,10 +42,12 @@ func main() {
 		dbFile = "./Database.json"
 	}
 
-	db.Init(dbFile)
-	defer db.Close()
+	err = db.Init(dbFile)
+	if err != nil {
+		panic(err)
+	}
 
-	s := webServer(db, "0.0.0.0:80")
+	s := webServer(db, "127.0.0.1:8080")
 
 	log.Println("Server Started")
 	s.ListenAndServe()

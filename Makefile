@@ -1,6 +1,5 @@
 all: depends release
 
-
 depends:
 	@$$(which tsc) --version >/dev/null || (echo "missing typescript compiler"; exit 1)
 	@$$(which go) version >/dev/null || (echo "missing golang"; exit 1)
