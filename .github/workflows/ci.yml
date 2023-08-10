@@ -1,0 +1,56 @@
+name: Continuous Integration
+on: [push, pull_request, release]
+jobs:
+  build:
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      matrix:
+        platform: ['ubuntu-latest']
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Set up dependencies
+        run: |
+          go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
+          go install honnef.co/go/tools/cmd/staticcheck@latest
+          make depends
+
+      - name: Code Formatting
+        run: go fmt ./...
+
+      - name: Generate API Interfaces
+        run: go generate -v ./...
+
+      - name: Generate JScript
+        run: tsc
+
+      - name: Static Analysis
+        run: staticcheck ./...
+
+      - name: Build
+        run: go build -o build/${{ matrix.platform }}/mealbot -v ./cmd
+        env:
+          MEALBOT_PLATFORM: ${{ matrix.platform }}
+
+      - name: Test
+        run: go test -timeout 360s -race -json -v ./... > build/${{ matrix.platform }}/test.json
+    
+      - name: Coverage
+        if: ${{ matrix.platform == 'ubuntu-latest' }}
+        run: |
+          go test -count=1 -coverprofile=${{ matrix.platform }}.cover.out ./...
+          go tool cover -html=${{ matrix.platform }}.cover.out -o build/coverage.html
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.platform }}
+          path: build/
+
+

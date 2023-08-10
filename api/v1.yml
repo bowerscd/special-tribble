@@ -1,0 +1,358 @@
+openapi: 3.1.0
+info:
+  title: Mealbot API
+  version:  0.1.0
+paths:
+  /api/get-data:
+    get:
+      deprecated: true
+      description: |
+        Retrieve the entirety of the database.
+      responses:
+        '200':
+          description: |
+            things
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegacyDatabase'
+
+  /api/echo:
+    post:
+      deprecated: true
+      description: return what is written to this endpoint
+      responses:
+        '200':
+          description: always
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AnyType'
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/AnyType'
+
+  /api/edit_meal/{Payer}/{Recipient}/{Payment}:
+    post:
+      deprecated: true
+      responses:
+        '200':
+          description: ''
+      parameters: 
+        - name: Payer
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/AccountName"
+
+        - name: Recipient
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/AccountName"
+            
+        - name: Payment
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+
+  /api/whoami/{UserID}:
+    get:
+      deprecated: true
+      responses:
+        '200':
+          description: 'retrieve a username of a user by UserID'
+      parameters: 
+        - name: UserID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: uint32
+
+  /api/v1/Summary:
+    get:
+      deprecated: false
+      description: |
+        Retrieve a summary of incoming and outgoing debts. It can do the
+        following depending on the arguments:
+        |                           Effect                          | Parameters       |    Response Type    |
+        |:---------------------------------------------------------:|:----------------:|:-------------------:|
+        | A global summary, for all users.                          | None             | GlobalRecordSummary |
+        | A specific summary for a single user.                     | User             | UserRecordSummary   |
+        | A specific summary for a single user, over a time period. | User, Start, End | UserRecordSummary   |
+      responses:
+        '200':
+          description: |
+            a list of summary objects. Return varies based on type of query.
+            For a global summary, it's a two-level nested map where each key
+            is a username.
+
+            For a user-specific summary, it's a one level map where each key
+            is a username.
+
+            Each final value is an object containing two keys, "IncomingCredits"
+            and "OutgoingCredits".
+          content:
+            application/json:
+              schema:
+                type: object
+                oneOf:
+                  - $ref: '#/components/schemas/UserRecordSummary'
+                  - $ref: '#/components/schemas/GlobalRecordSummary'
+
+      parameters:
+        - name: user
+          description: |
+            The user to query for
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/AccountName'
+
+        - name: start
+          description:
+            The lower bound of the time period to query, as seconds from epoch (UNIX Time).
+            If specified, 'end' is required.
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/DateTime'
+
+        - name: end
+          description:
+            The upper bound of the time period to query, as seconds from epoch (UNIX Time).
+            If specified, 'start' is required.
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/DateTime'
+
+  /api/v1/Record:
+    post:
+      deprecated: false
+      description: |
+        Record a transaction between users for a specified amount of credits.
+      responses:
+        "200":
+          description: Operation was successful
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRecordParam"
+
+    get:
+      deprecated: false
+      description: |
+        Retrieve records of debts. It can do the following, depending on
+        the provided arguments:
+        
+        |                                   Effect                                            |   Parameters Required    |
+        |:-----------------------------------------------------------------------------------:|:------------------------:|
+        |                                All Records                                          |            None          |
+        |                      All records for a specific user                                |            user1         |
+        |           All records for a specific user, for a specific time range.               |   user1, start and end   |
+        |                        A limited number of records                                  |           limit          |
+        |              A limited number of records for a specific user.                       |       user1, limit       |
+        |  A limited number of records for a specific user, for a specific time range         |     user1, start, end    |
+        |                All records between two specific users.                              |       user1, user2       |
+        |     All records between two specific users, for a specific time range.              | user1, user2, start, end |
+        | A limited number of records between two specific users, for a specified time range. |            all           |
+      
+      responses:
+        "200":
+          description: A list of Record objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Record'
+
+      parameters:
+        - name: user1
+          description: |
+            The user to query for
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/AccountName'
+            
+        - name: user2
+          description: |
+            The second user to query for
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/AccountName'
+
+        - name: limit
+          description: |
+            The limit of results to return
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint32
+
+        - name: start
+          description:
+            The lower bound of the time period to query, as seconds from epoch (UNIX Time).
+            If specified, 'end' is required.
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/DateTime'
+
+
+        - name: end 
+          description:
+            The upper bound of the time period to query, as seconds from epoch (UNIX Time).
+            If specified, 'start' is required.
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/DateTime'
+
+  /api/v1/User:
+    post:
+      deprecated: false
+      description: |
+        Creates or modifies a user.
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: client fucked up
+        "500":
+          description: server fucked up
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountModificationRequest'
+
+components:
+  schemas:
+    AnyType:
+      description: 'anything goes'
+  
+    LegacyDatabase:
+      type: object
+      properties:
+        Users:
+          type: array
+          items:
+            type: object
+            required: 
+              - ID
+              - UPN
+            properties:
+              ID:
+                type: integer
+                format: uint32
+              UPN:
+                $ref: '#/components/schemas/AccountName'
+        Reciepts:
+          type: array
+          items:
+            type: object
+            properties:
+              Payer:
+                type: integer
+                format: uint32
+              Payee:
+                type: integer
+                format: uint32
+              NumMeals:
+                type: integer
+                format: int32
+              DateTime:
+                $ref: "#/components/schemas/DateTime"
+
+    AccountName:
+      type: string
+      pattern: "[a-z]{3}[a-z]+"
+
+    ModificationOperation:
+      type: string
+      enum:
+        - "CREATE"
+
+    DateTime:
+      type: string
+      format: date-time
+
+    AccountModificationRequest:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/AccountName"
+        operation:
+          $ref: '#/components/schemas/ModificationOperation'
+          
+    GlobalRecordSummary:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/UserRecordSummary'
+
+    UserRecordSummary:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/RecordSummary'
+
+    RecordSummary:
+      type: object
+      required:
+        - 'incoming-credits'
+        - 'outgoing-credits'
+      properties:
+        incoming-credits:
+          type: integer
+          format: int32
+          description: ''
+          
+        outgoing-credits:
+          type: integer
+          format: int32
+          description: ''
+
+    CreateRecordParam:
+      type: object
+      required:
+        - payer
+        - recipient
+        - credits
+      properties:
+        payer:
+          $ref: "#/components/schemas/AccountName"
+        recipient:
+          $ref: "#/components/schemas/AccountName"
+        credits:
+          type: integer
+          format: int32
+
+    Record:
+      type: object
+      required: 
+        - payer
+        - recipient
+        - credits
+        - date
+      properties:
+        payer:
+          $ref: '#/components/schemas/AccountName'
+        recipient:
+          $ref: '#/components/schemas/AccountName'
+        credits:
+          type: integer
+          format: uint32
+          description: number of credits paid
+        date:
+          $ref: '#/components/schemas/DateTime'
